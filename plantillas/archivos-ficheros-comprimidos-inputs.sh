@@ -46,3 +46,23 @@ while true; do
 
 done
 
+
+# echo -n "Escribe un número: "
+# read valor
+
+# if [ $valor -gt 5 -o $valor -lt 10 ]; then
+#     echo "Tu numero es mayor que 5 o menor que 10"
+# elif [ $valor -ge 5 -a $valor -le 10 ]; then
+#     echo "Tu numero está en el rango [5, 10]"
+# elif [ $valor -eq 5 -o $valor -eq 10 ]; then
+#     echo "Tu numero es igual a 5 o a 10"
+# elif [ $valor -ne 5 -a $valor -ne 10 ]; then
+#     echo "Tu numero es distinto a 5 y a 10"
+# fi
+#Operadores relacionales
+#-eq: igual a
+#-ne: no es igual a
+#-gt: Mator a
+#-ge: Mayor o igual igual a
+#-lt: Menor a
+#-le: Menor o igual a

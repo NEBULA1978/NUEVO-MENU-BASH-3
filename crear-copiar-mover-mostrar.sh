@@ -59,13 +59,13 @@ seleccionar_opcion() {
             ;;
         5)
             echo -n "Archivo o carpeta: "
-            read nombre_objeto
+            read -r nombre_objeto
             if [ -f "$nombre_objeto" ]; then
                 echo "Contenido del archivo $nombre_objeto:"
                 cat "$nombre_objeto"
             elif [ -d "$nombre_objeto" ]; then
                 echo "Entrando en la carpeta $nombre_objeto"
-                cd "$nombre_objeto"
+                cd || "$nombre_objeto"
             else
                 echo "El archivo o carpeta $nombre_objeto no existe"
             fi
