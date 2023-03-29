@@ -16,7 +16,7 @@ seleccionar_opcion() {
     case $opcion in
         1)
             echo -n "Instalar programa? [s/n]: "
-            read resultado
+            read -r resultado
             if [[ $resultado == [sS] ]]; then
                 echo "Instalando programa..."
             elif [[ $resultado == [nN] ]]; then
@@ -27,9 +27,9 @@ seleccionar_opcion() {
             ;;
         2)
             echo -n "Entrar en carpeta: "
-            read nombre_carpeta
+            read -r nombre_carpeta
             if [ -d $nombre_carpeta ]; then
-                cd $nombre_carpeta
+                cd || $nombre_carpeta
                 echo "Entrando en la carpeta $nombre_carpeta"
             else
                 echo "La carpeta $nombre_carpeta no existe"
@@ -37,9 +37,9 @@ seleccionar_opcion() {
             ;;
         3)
             echo -n "Archivo a mover: "
-            read nombre_archivo
+            read -r nombre_archivo
             echo -n "Carpeta de destino: "
-            read nombre_carpeta
+            read -r nombre_carpeta
             if [ -f "$nombre_archivo" ] && [ -d "$nombre_carpeta" ]; then
                 mv "$nombre_archivo" "$nombre_carpeta"
                 echo "El archivo $nombre_archivo ha sido movido a la carpeta $nombre_carpeta"
@@ -49,7 +49,7 @@ seleccionar_opcion() {
             ;;
         4)
             echo -n "Archivo o carpeta a eliminar: "
-            read nombre_objeto
+            read -r nombre_objeto
             if [ -e "$nombre_objeto" ]; then
                 rm -r "$nombre_objeto"
                 echo "El archivo o carpeta $nombre_objeto ha sido eliminado"
