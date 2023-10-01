@@ -3,23 +3,28 @@
 # Definimos un array con las opciones del menú. Cada opción es una cadena con dos partes separadas por el carácter '|': el nombre de la opción y el comando correspondiente.
 opciones=(
     "Mostrar directorio:|ls"
-    "Comprimir archivo gzip:|echo 'Ingrese el nombre del archivo:' && read archivo && gzip $archivo"
-    "Descomprimir archivo gzip:|echo 'Ingrese el nombre del archivo:' && read archivo && gunzip $archivo.gz"
-    "Comprimir archivo gzip con máxima compresión:|echo 'Ingrese el nombre del archivo:' && read archivo && gzip -9 $archivo"
-    "Comprimir archivo bzip2:|echo 'Ingrese el nombre del archivo:' && read archivo && bzip2 $archivo"
-    "Descomprimir archivo bzip2:|echo 'Ingrese el nombre del archivo:' && read archivo && bunzip2 $archivo.bz2"
-    "Crear archivo tar descomprimido:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -cvf $archivo.tar file1"
-    "Crear archivo tar con varios archivos y directorios:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -cvf $archivo.tar file1 file2 dir1"
-    "Mostrar contenido de archivo tar:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -tf $archivo"
-    "Extraer archivo tar:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -xvf $archivo"
-    "Extraer archivo tar en directorio específico:|echo 'Ingrese el nombre del archivo:' && read archivo && echo 'Ingrese el directorio de destino:' && read directorio && tar -xvf $archivo -C $directorio"
-    "Crear archivo tar comprimido en bzip2:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -cvfj $archivo.tar.bz2 dir1"
-    "Descomprimir archivo tar comprimido en bzip2:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -xvfj $archivo.tar.bz2"
-    "Crear archivo tar comprimido en gzip:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -cvfz $archivo.tar.gz dir1"
-    "Descomprimir archivo tar comprimido en gzip:|echo 'Ingrese el nombre del archivo:' && read archivo && tar -xvfz $archivo.tar.gz"
-    "Crear archivo comprimido en zip:|echo 'Ingrese el nombre del archivo:' && read archivo && zip $archivo.zip file1"
-    "Crear archivo comprimido en zip con varios archivos y directorios:|echo 'Ingrese el nombre del archivo:' && read archivo && zip -r $archivo.zip file1 file2 dir1"
-    "Descomprimir archivo zip:|echo 'Ingrese el nombre del archivo:' && read archivo && unzip $archivo.zip"
+    "Instalar programa:|echo '¿Desea instalar el programa? [s/n]:' && read respuesta && [ \"$respuesta\" == \"s\" ] && echo 'Instalando programa...' || echo 'Programa no instalado.'"
+    "Entrar en carpeta:|echo 'Ingrese el nombre de la carpeta:' && read carpeta && [ -d \"\$carpeta\" ] && cd \"\$carpeta\" && echo 'Entrando en la carpeta \$carpeta' || echo 'La carpeta \$carpeta no existe.'"
+    "Mover archivo o carpeta:|echo 'Ingrese el nombre del archivo o carpeta a mover:' && read origen && [ -e \"\$origen\" ] && echo 'Ingrese el directorio de destino:' && read destino && [ -d \"\$destino\" ] && mv \"\$origen\" \"\$destino\" && echo 'Movido con éxito' || echo 'Archivo o carpeta no encontrados o directorio de destino no válido.'"
+    "Eliminar archivo o carpeta:|echo 'Ingrese el nombre del archivo o carpeta a eliminar:' && read objetivo && [ -e \"\$objetivo\" ] && rm -r \"\$objetivo\" && echo 'Eliminado con éxito' || echo 'Archivo o carpeta no encontrados.'"
+    "Mostrar contenido de archivo o carpeta:|echo 'Ingrese el nombre del archivo o carpeta:' && read objetivo && [ -e \"\$objetivo\" ] && ( [ -f \"\$objetivo\" ] && cat \"\$objetivo\" || [ -d \"\$objetivo\" ] && cd \"\$objetivo\" ) || echo 'Archivo o carpeta no encontrados.'"
+    "Comprimir archivo gzip:|echo 'Ingrese el nombre del archivo a comprimir:' && read archivo && [ -e \"\$archivo\" ] && gzip \"\$archivo\" && echo 'Archivo comprimido con éxito' || echo 'Archivo no encontrado.'"
+    "Descomprimir archivo gzip:|echo 'Ingrese el nombre del archivo a descomprimir:' && read archivo && [ -e \"\$archivo\" ] && gunzip \"\$archivo\" && echo 'Archivo descomprimido con éxito' || echo 'Archivo no encontrado.'"
+    "Comprimir archivo gzip con máxima compresión:|echo 'Ingrese el nombre del archivo a comprimir con máxima compresión:' && read archivo && [ -e \"\$archivo\" ] && gzip -9 \"\$archivo\" && echo 'Archivo comprimido con éxito' || echo 'Archivo no encontrado.'"
+    "Comprimir archivo bzip2:|echo 'Ingrese el nombre del archivo a comprimir con bzip2:' && read archivo && [ -e \"\$archivo\" ] && bzip2 \"\$archivo\" && echo 'Archivo comprimido con éxito' || echo 'Archivo no encontrado.'"
+    "Descomprimir archivo bzip2:|echo 'Ingrese el nombre del archivo a descomprimir de bzip2:' && read archivo && [ -e \"\$archivo\" ] && bunzip2 \"\$archivo\" && echo 'Archivo descomprimido con éxito' || echo 'Archivo no encontrado.'"
+    "Crear archivo tar descomprimido:|echo 'Ingrese el nombre del archivo tar a crear:' && read archivo && tar -cvf \"\$archivo.tar\" file1 && echo 'Archivo tar creado con éxito' || echo 'Error al crear archivo tar.'"
+    "Crear archivo tar con varios archivos y directorios:|echo 'Ingrese el nombre del archivo tar a crear:' && read archivo && tar -cvf \"\$archivo.tar\" file1 file2 dir1 && echo 'Archivo tar creado con éxito' || echo 'Error al crear archivo tar.'"
+    "Mostrar contenido de archivo tar:|echo 'Ingrese el nombre del archivo tar:' && read archivo && tar -tf \"\$archivo\" || echo 'Archivo tar no encontrado o inválido.'"
+    "Extraer archivo tar:|echo 'Ingrese el nombre del archivo tar a extraer:' && read archivo && tar -xvf \"\$archivo\" && echo 'Archivo tar extraído con éxito' || echo 'Error al extraer archivo tar.'"
+    "Extraer archivo tar en directorio específico:|echo 'Ingrese el nombre del archivo tar a extraer:' && read archivo && echo 'Ingrese el directorio de destino:' && read directorio && tar -xvf \"\$archivo\" -C \"\$directorio\" && echo 'Archivo tar extraído con éxito en el directorio \$directorio' || echo 'Error al extraer archivo tar o directorio de destino inválido.'"
+    "Crear archivo tar comprimido en bzip2:|echo 'Ingrese el nombre del archivo tar.bz2 a crear:' && read archivo && tar -cvfj \"\$archivo.tar.bz2\" dir1 && echo 'Archivo tar.bz2 creado con éxito' || echo 'Error al crear archivo tar.bz2.'"
+    "Descomprimir archivo tar comprimido en bzip2:|echo 'Ingrese el nombre del archivo tar.bz2 a descomprimir:' && read archivo && tar -xvfj \"\$archivo.tar.bz2\" && echo 'Archivo tar.bz2 descomprimido con éxito' || echo 'Error al descomprimir archivo tar.bz2.'"
+    "Crear archivo tar comprimido en gzip:|echo 'Ingrese el nombre del archivo tar.gz a crear:' && read archivo && tar -cvfz \"\$archivo.tar.gz\" dir1 && echo 'Archivo tar.gz creado con éxito' || echo 'Error al crear archivo tar.gz.'"
+    "Descomprimir archivo tar comprimido en gzip:|echo 'Ingrese el nombre del archivo tar.gz a descomprimir:' && read archivo && tar -xvfz \"\$archivo.tar.gz\" && echo 'Archivo tar.gz descomprimido con éxito' || echo 'Error al descomprimir archivo tar.gz.'"
+    "Crear archivo comprimido en zip:|echo 'Ingrese el nombre del archivo zip a crear:' && read archivo && zip \"\$archivo.zip\" file1 && echo 'Archivo zip creado con éxito' || echo 'Error al crear archivo zip.'"
+    "Crear archivo comprimido en zip con varios archivos y directorios:|echo 'Ingrese el nombre del archivo zip a crear:' && read archivo && zip -r \"\$archivo.zip\" file1 file2 dir1 && echo 'Archivo zip creado con éxito' || echo 'Error al crear archivo zip.'"
+    "Descomprimir archivo zip:|echo 'Ingrese el nombre del archivo zip a descomprimir:' && read archivo && unzip \"\$archivo.zip\" && echo 'Archivo zip descomprimido con éxito' || echo 'Error al descomprimir archivo zip.'"
     "Salir:|exit 0"
 )
 
@@ -45,24 +50,3 @@ while true; do
     fi
 
 done
-
-
-# echo -n "Escribe un número: "
-# read valor
-
-# if [ $valor -gt 5 -o $valor -lt 10 ]; then
-#     echo "Tu numero es mayor que 5 o menor que 10"
-# elif [ $valor -ge 5 -a $valor -le 10 ]; then
-#     echo "Tu numero está en el rango [5, 10]"
-# elif [ $valor -eq 5 -o $valor -eq 10 ]; then
-#     echo "Tu numero es igual a 5 o a 10"
-# elif [ $valor -ne 5 -a $valor -ne 10 ]; then
-#     echo "Tu numero es distinto a 5 y a 10"
-# fi
-#Operadores relacionales
-#-eq: igual a
-#-ne: no es igual a
-#-gt: Mator a
-#-ge: Mayor o igual igual a
-#-lt: Menor a
-#-le: Menor o igual a
